@@ -17,7 +17,7 @@ coc.nvim
 ```
 ### C/C++
 ##  CLI
-# sudo apt-get install llvm clang-format
+# sudo apt-get install clangd clang-format
 # clang-format -style=llvm --dump-config > ~/.clang-format
 
 ##  Vim
