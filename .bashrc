@@ -16,7 +16,7 @@ set -e -o pipefail
 # 
 # findstr
 #   ファイルやディレクトリを指定し、ファイル中のテキスト文字列を検索する
-#   USAGE: findstr 検索文字列 [(ファイル|ディレクトリ)]
+#       USAGE: findstr 検索文字列 [(ファイル|ディレクトリ)]
 #   第2引数を省略した場合、カレントディレクトリが指定される
 #
 function findstr() {
@@ -32,7 +32,7 @@ function findstr() {
                 return 1
         fi
 
-        grep "$1" -rln "${2:-$(pwd)}"
+        grep -E "$1" -rl "${2:-$(pwd)}"
         return 0
 }
 
@@ -44,7 +44,9 @@ PS1='\[\e[1;32m\]\u@\h:\w \$ \[\e[m\]'
 # 環境変数の設定
 export PATH=$PATH:/sbin:/usr/sbin
 export EDITOR='/usr/bin/vim' # visudo とかで使われる
+export HISTCONTROL=ignoreboth # 連続して実行したコマンドを重複して履歴に載せない
 export HISTSIZE=50000
+export HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '
 export LANG='ja_JP.UTF-8'
 export LC_ALL='ja_JP.UTF-8'
 export LC_MESSAGES='ja_JP.UTF-8'
