@@ -9,5 +9,17 @@
 
 dein
 ```
+### Vim
 :call dein#install()
+```
+
+coc.nvim
+```
+### C/C++
+##  CLI
+# sudo apt-get install llvm clang-format
+# clang-format -style=llvm --dump-config > ~/.clang-format
+
+##  Vim
+:CocInstall coc-clangd
 ```
