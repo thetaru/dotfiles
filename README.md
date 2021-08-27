@@ -6,3 +6,8 @@
 ### Ubuntu
 # sudo apt-get install language-pack-ja
 ```
+
+dein
+```
+:call dein#install()
+```
