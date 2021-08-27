@@ -1,32 +1,81 @@
-set number
-set title
+"# Indent
 set tabstop=4
 set shiftwidth=4
+set expandtab
 set smartindent
-set nrformats-=octal
-set hidden
-set history=50
-set virtualedit=block
-set whichwrap=b,s,[,],<,>
-set backspace=indent,eol,start
-set wildmenu
 set list
-set listchars=tab:>-,trail:-,extends: ,precedes: ,nbsp:%
+set listchars=tab:>-,trail:-,nbsp:%
 
-if has("syntax")
-    syntax on
+"# Encoding
+set encoding=utf-8
+scriptencoding utf-8
+set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+set fileformats=unix,dos,mac
 
-    " PODバグ対策
-    syn sync fromstart
-
-    function! ActivateInvisibleIndicator()
-        " 下の行の"　"は全角スペース
-        syntax match InvisibleJISX0208Space "　" display containedin=ALL
-        highlight InvisibleJISX0208Space term=underline ctermbg=Blue guibg=darkgray gui=underline
-    endfunction
-
-    augroup invisible
-        autocmd! invisible
-        autocmd BufNew,BufRead * call ActivateInvisibleIndicator()
-    augroup END
+"# Options
+set belloff=all
+set title
+set number
+set hidden
+set nobackup
+set nowritebackup
+set backspace=indent,eol,start
+set ignorecase
+set hlsearch
+set whichwrap=b,s,[,],<,>
+set updatetime=300
+if has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
 endif
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+"# Completions
+"## 括弧
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap ` ``<LEFT>
+inoremap < <><LEFT>
+
+"## 関数括弧
+inoremap {<CR> {}<Left><CR><ESC><S-o>
+inoremap [<CR> []<Left><CR><ESC><S-o>
+inoremap (<CR> ()<Left><CR><ESC><S-o>
+
+"## クォーテーション括弧
+inoremap ' ''<LEFT>
+inoremap " ""<LEFT>
+
+"# dein plugin manager settings
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=/root/.cache/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+call dein#begin('/root/.cache/dein')
+
+" Let dein manage dein
+" Required:
+call dein#add('/root/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+" Add or remove your plugins here like this:
+call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
+call dein#add('preservim/nerdtree')
+call dein#add('prettier/vim-prettier', {'build': 'npm install'})
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+syntax enable
